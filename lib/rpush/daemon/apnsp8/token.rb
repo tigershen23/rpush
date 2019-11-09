@@ -18,7 +18,7 @@ module Rpush
         private
 
         def new_token
-          @cached_token_at = Time.now
+          @cached_token_at = Time.current
           ec_key = OpenSSL::PKey::EC.new(@app.apn_key)
           @cached_token = JWT.encode(
             {
@@ -35,7 +35,7 @@ module Rpush
         end
 
         def expired_token?
-          Time.now - @cached_token_at >= TOKEN_TTL
+          Time.current - @cached_token_at >= TOKEN_TTL
         end
       end
     end
